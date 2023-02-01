@@ -1,0 +1,35 @@
+
+<html>
+    <head>
+        <title>Calcolatrice di coppia</title>
+         <script type="text/javascript" src="scripts/wsocket_2.js"></script>
+         <script type="text/javascript" src="scripts/wsocket.js"></script>
+         <link type="text/css" href="styles/default.css" rel="stylesheet"></link>
+    </head>
+        <body>
+    	<h1>Calcolatrice di coppia</h1>
+   		Operando 1
+   		<input id="op1" name="op1" type="text" value="" onchange="myFunctionOnChange(this)"/><br>
+   		Operando 2
+   		<input id="op2" name="op2" type="text" value="" onchange="myFunctionOnChange(this)"/><br>
+   		Operazione:
+   		<p>
+   		<input name="op" type="radio" value="somma"> + </input><br>
+   		<input name="op" type="radio" value="sottrazione"> - </input><br>
+   		<input name="op" type="radio" value="moltiplicazione"> * </input><br>
+   		<input name="op" type="radio" value="divisione"> / </input><br>
+   		Risultato:<input name="risultato" id="risultato" type="text" value="">  </input><br>
+   		Risultato Precedente:<input name="risultatoOld" id="risultatoOld" type="text" value="">  </input><br>
+   		<p>
+   		<br><br>
+   		<button name="invio" type="submit" onclick="myFunction()"> = </button>
+   		<br><br>
+   		
+    	
+    	
+    </body>
+
+
+   
+
+</html>

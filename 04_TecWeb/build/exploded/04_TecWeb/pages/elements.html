@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="-1"/>
+		<title>Elementi animati</title>
+		<link rel="stylesheet" href="../styles/default.css" type="text/css"/>
+		
+
+	</head>
+	<body onload="displayDate()">
+		<p id="time"></p>
+	
+		<form id="calc" name="myform">
+			<fieldset>
+				<legend>Questionario</legend>
+			<div class="row">
+			<div class="component">
+			<label>Il tuo nome:</label>
+			<input  type="text" name="nome" size="15" >
+			</div>
+			<div class="component">
+			<label>La tua parola di accesso:</label>
+			<input  type="password" name="password" size="15" >
+			</div>
+			<div class="component">
+			<label>Nome del file:</label>
+			<div class="horizontal">
+			<input type="file" name="file" size="15">
+			<input type="button" value="Browse..." >
+			</div>
+			</div>
+			<div class="horizontal">
+				<label>Quali dei miei figli preferisci?</label><br>
+				<input type="checkbox" name="figlio" value="Bart" >Bart<br>
+				<input type="checkbox" name="figlio" value="Lisa" checked="checked" >Lisa<br>
+				<input type="checkbox" name="figlio" value="Maggie" >Maggie<br>
+			</div>
+			<div class="horizontal">
+				<label>Chi è il più divertente?</label><br>
+				<input type="radio" name="divertente" value="Homer" checked="checked">Homer<br>
+				<input type="radio" name="divertente" value="Bart" >Bart<br>
+				<input type="radio" name="divertente" value="Lisa">Lisa<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class="component">
+			<label>Scegli dei passatempi:</label>
+			<select name="passatempi" multiple="select-multiple">
+				<option value="sport">Sport</option>
+				<option value="musica" selected="selected">Musica</option>
+				<option value="viaggi">Viaggi</option>
+				<option value="letture">Letture</option>
+			</select>
+			</div>
+			<div class="component">
+				<label>Il tuo colore preferito:</label>
+				<select name="colore">
+					<option value="rosso">Rosso</option>
+					<option value="blu" selected="selected">Blu</option>
+					<option value="giallo">Giallo</option>
+					<option value="verde">Verde</option>
+				</select>
+			</div>
+			<div class="component">
+			<label>Eventi in ingresso:</label>
+			<textarea id="testo" name="testo" rows="15" cols="45"></textarea>
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="horizontal">
+			<label>Pulsanti:</label>
+			<input type="button" value="svuota eventi" name="bottone_svuota">
+			<input type="submit" value="sottometti" name="bottone_sottometti">
+			<input type="reset" value="azzera" name="bottone_azzera">
+		</div>
+	</fieldset>
+		</form>
+
+
+	<form name="myform2">
+		<fieldset>
+			<legend>Messaggi:</legend>
+			<textarea id="mex" name="messaggio" rows="10" cols="3" onkeyup="contaCaratteri()" onmouseover="style.backgroundColor='blue'; style.color='white'" onmouseout="style.backgroundColor='white'; style.color='black'"></textarea>
+			<input type="text" name="count" id="count" value="60">
+		</fieldset>
+	</form>
+		<script type="text/javascript"><!--
+
+			function contaCaratteri(){
+					//var tot=document.myform2.count.value;					
+					
+					if(document.myform2.count.value<=0){
+						document.myform2.messaggio.value = document.myform2.messaggio.value.substring(0,60);
+						//document.myform2.messaggio.disabled="true";
+					}else{
+						document.myform2.count.value=document.myform2.count.value-1;
+					}
+			}
+
+			function displayDate() {
+				var fullDate= new Date().toLocaleDateString('it-it', {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+				var fullTime= new Date().toLocaleTimeString();
+		  	document.getElementById("time").innerHTML ="Oggi è "+ fullDate +", ore "+fullTime;
+		  	setTimeout("displayDate()",500);
+			}
+
+
+			function collegaAction(f){
+			var gestore_click       = new Function("actionElement(this, 'Click')");
+   	 		var gestore_change      = new Function("actionElement(this, 'Change')");
+    		var gestore_focus       = new Function("actionElement(this, 'Focus')");
+    		var gestore_blur        = new Function("actionElement(this, 'Blur')");
+    		var gestore_select      = new Function("actionElement(this, 'Select')");
+			var gestore_dblclick    = new Function("actionElement(this, 'DbClick')");
+			for( var i=0;i<f.elements.length; i++){
+					var e=f.elements[i];
+					console.log(e.name);
+					e.onclick    = gestore_click;
+					e.onchange   = gestore_change;
+        			e.onfocus    = gestore_focus;
+        			e.onblur     = gestore_blur;
+        			e.onselect   = gestore_select;
+					e.ondblclick = gestore_dblclick;
+			}
+
+			f.bottone_svuota.onclick = 
+        new Function("this.form.testo.value=''; actionElement(this, 'Click');");
+    f.bottone_sottometti.onclick = 
+        new Function("actionElement(this, 'Click'); return false");
+    f.bottone_azzera.onclick = 
+        new Function("this.form.reset(); actionElement(this, 'Click'); return false");
+
+			}
+
+
+			function actionElement(e,name) {
+				var t= document.getElementById("testo");
+				var node, valore=' ';
+				if ((e.type == "select-one") || (e.type == "select-multiple")){
+        			for(var i = 0; i < e.options.length; i++){
+            			if (e.options[i].selected) {
+                			valore += e.options[i].value + " ";
+    					}
+					}
+					node = document.createTextNode (name+":"+valore+"("+e.name+")\n");
+				}
+				else{ 
+					node = document.createTextNode (name+":"+e.value+"("+e.name+")\n");	
+				}			
+                t.appendChild(node);
+			}
+
+
+			
+
+			collegaAction(document.myform);
+		-->
+		</script>
+	</body>
+
+</html>
+

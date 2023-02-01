@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<project name="TemplateApp" basedir=".." default="02.print.properties">
+
+	<!-- ================ -->
+	<!-- Properties setup -->
+	<!-- ================ -->
+
+	<target 
+		name="00.init.properties" 
+		description="Sets up properties"
+	>
+		<!-- Environment properties -->
+		<property file="ant/environment.properties"/>
+		<!-- Project structure -->
+	    <property name="src.dir" value="src"/>
+	    <property name="test.dir" value="test"/>
+		<property name="build.dir" value="build"/>
+	    <property name="build.classes.dir" value="${build.dir}/classes"/>
+	    <property name="build.tests.dir" value="${build.dir}/tests"/>
+	    <property name="build.archives.dir" value="${build.dir}/archives"/>
+	    <property name="build.exploded.dir" value="${build.dir}/exploded"/>
+		<property name="lib.dir" value="lib"/>
+		<property name="resources.dir" value="resources"/>
+		<property name="tmp.dir" value="tmp"/>
+	</target>
+
+	<target 
+		name="01.set.classpath" depends="00.init.properties" 
+		description="Sets up classpath properties for other tasks"
+	>
+	    <path id="ant-classpath">
+	    	<!-- Project-specific libraries -->
+	        <fileset dir="${lib.dir}">
+	            <include name="*.jar"/>
+	        </fileset>
+	    	<!-- Project classes -->
+	        <pathelement path="${build.classes.dir}"/>
+	    </path>
+	</target>
+
+	<!-- ================= -->
+	<!-- Informative tasks -->
+	<!-- ================= -->
+
+	<target 
+		name="02.print.properties" depends="00.init.properties"
+		description="Prints properties on screen for verification purpose" 
+	>
+        <echo message="-----------------------------------"/>
+        <echo message="Properties are:"/>
+        <echo message="-----------------------------------"/>
+		<echo message="{ant.project.name} is '${ant.project.name}'"/>
+		<echo message="{basedir} is '${basedir}'"/>
+		<echo message="{src.dir} is '${src.dir}'"/>
+		<echo message="{test.dir} is '${test.dir}'"/>
+		<echo message="{build.classes.dir} is '${build.classes.dir}'"/>
+		<echo message="{build.tests.dir} is '${build.tests.dir}'"/>
+		<echo message="{build.archives.dir} is '${build.archives.dir}'"/>
+		<echo message="{build.exploded.dir} is '${build.exploded.dir}'"/>
+		<echo message="{resources.dir} is '${resources.dir}'"/>
+		<echo message="{lib.dir} is '${lib.dir}'"/>
+		<echo message="{tmp.dir} is '${tmp.dir}'"/>
+        <echo message="..................................."/>
+		<echo message="{java.home} is '${java.home}'"/>
+        <echo message="..................................."/>
+		<!--
+		<echo message="{} is '${}'"/>
+		-->
+        <echo message=" "/>
+	</target>
+
+	<!-- ============= -->
+	<!-- Project tasks -->
+	<!-- ============= -->
+
+	<target 
+		name="03.clean" depends="00.init.properties"
+		description="Creates project structure, if needed"
+	>
+        <delete dir="${build.dir}"/>
+        <delete dir="${tmp.dir}" includes="**"/>
+	</target>
+
+	<target 
+		name="04.prepare" depends="03.clean"
+		description="Creates project structure, if needed"
+	>
+        <mkdir dir="${src.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${build.tests.dir}"/>
+        <mkdir dir="${build.archives.dir}"/>
+        <mkdir dir="${build.exploded.dir}"/>
+		<mkdir dir="${lib.dir}"/>
+		<mkdir dir="${resources.dir}"/>
+        <mkdir dir="${tmp.dir}"/>
+	</target>
+    
+	<target 
+    	name="05.build" depends="01.set.classpath, 04.prepare"
+		description="Compile main source tree java files"
+    >
+        <mkdir dir="${build.classes.dir}"/>
+        <javac destdir="${build.classes.dir}" debug="true"
+		deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.dir}"/>
+            <classpath refid="ant-classpath"/>
+        </javac>
+	</target>
+
+	<target 
+    	name="05.build.tests" depends="05.build"
+		description="Compile test java files"
+    >
+        <javac destdir="${build.tests.dir}" 
+		deprecation="false" optimize="false" failonerror="true">
+            <src path="${test.dir}"/>
+            <classpath refid="ant-classpath"/>
+        	<classpath location="${build.classes.dir}"/>
+        </javac>
+    </target>
+
+	<target name="06.test" depends="05.build, 05.build.tests">
+		<junit fork="yes" printsummary="yes" >
+			<formatter type="xml" />
+			<test name="it.tecnologieweb.test.ASampleTest" todir="${tmp.dir}"/>
+            <classpath refid="ant-classpath"/>
+        	<classpath path="${build.classes.dir}"/>
+        	<classpath path="${build.tests.dir}"/>
+		</junit>	
+	</target>
+    
+	<target 
+    	name="07.package" depends="05.build" 
+    	description="Packages application classes into a jar file"
+    >
+    	<delete file="${build.archives.dir}/${ant.project.name}.jar"/>
+		<jar destfile="${build.archives.dir}/${ant.project.name}.jar" >
+			<zipfileset dir="${build.classes.dir}" includes="**"/>
+			<zipfileset dir="${resources.dir}" />
+		</jar>
+    	<delete dir="${build.exploded.dir}/${ant.project.name}.jar"/>
+		<unjar
+			src="${build.archives.dir}/${ant.project.name}.jar"
+			dest="${build.exploded.dir}/${ant.project.name}.jar"
+		/>
+    </target>
+	
+	<target name="08.debug" depends="05.build">
+		<input
+		    message="Please enter your name; default:"
+		    addproperty="nome"
+		    defaultvalue="${ant.project.name}"
+		/>
+		<property name="port" value="8787"/>
+		<java fork="yes" classname="it.tecnologieweb.app.Main" args="${nome}">
+			<arg value="${nome}"/>
+			<jvmarg value="-Xdebug"/>
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,address=${port},server=y,suspend=n"/>
+			<classpath refid="ant-classpath"/>
+        	<classpath path="${build.classes.dir}"/>
+		</java>
+	</target>
+
+	<target name="09.run" depends="07.package">
+		<input
+		    message="Please enter your name; default:"
+		    addproperty="nome"
+		    defaultvalue="${ant.project.name}"
+		/>
+		<java fork="yes" classname="it.tecnologieweb.app.Main" args="${nome}">
+			<classpath refid="ant-classpath"/>
+        	<classpath path="${build.archives.dir}/${ant.project.name}.jar"/>
+		</java>
+	</target>
+
+</project>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+		id="WebApp_ID" 
+		version="3.0">
+
+  <display-name>02b_TecWeb_solved</display-name>
+  
+  <servlet>
+    <description></description>
+    <display-name>HelloWorldServlet</display-name>
+    <servlet-name>HelloWorldServlet</servlet-name>
+    <servlet-class>it.unibo.tw.web.HelloWorldServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloWorldServlet</servlet-name>
+    <url-pattern>/HelloWorldServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>LearningServlet1</display-name>
+    <servlet-name>LearningServlet1</servlet-name>
+    <servlet-class>it.unibo.tw.web.LearningServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LearningServlet1</servlet-name>
+    <url-pattern>/LearningServlet1</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>LearningServlet2</display-name>
+    <servlet-name>LearningServlet2</servlet-name>
+    <servlet-class>it.unibo.tw.web.LearningServlet2</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LearningServlet2</servlet-name>
+    <url-pattern>/LearningServlet2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>LearningServlet3</display-name>
+    <servlet-name>LearningServlet3</servlet-name>
+    <servlet-class>it.unibo.tw.web.LearningServlet3</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LearningServlet3</servlet-name>
+    <url-pattern>/LearningServlet3</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Define an error handler for 404 pages --> 
+	<error-page> 
+ 		<error-code>404</error-code> 
+ 		<location>/errors/notfound.html</location> 
+	</error-page> 
+	<!-- Define an error handler for java.lang.Exception --> 
+	<error-page> 
+ 		<exception-type>java.lang.Exception</exception-type> 
+ 		<location>/errors/exception.html</location> 
+	</error-page>
+	
+</web-app>

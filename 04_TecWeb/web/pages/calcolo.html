@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="-1"/>
+		<title>Calcolo media</title>
+		<link rel="stylesheet" href="../styles/default.css" type="text/css" />
+        <script type="text/javascript">
+
+    
+
+    </script>
+	</head>
+	<body>
+
+		<h1>Analisi statistica dei voti riportati negli esami</h1>
+        <p id="voti">voti: </p>
+        <p id="minimo">minimo: </p>
+        <p id="massimo">massimo: </p>
+        <p id="media">media: </p>
+        <p id="variab">variabilità: </p>
+        <script type="text/javascript">
+            //Popup
+              var text;
+              var voti = prompt("Inserisci una sequenza di voti tra 18 e 33","18 25 29");
+              if (voti == null || voti == "") {
+                text = "Nessun voto inserito";
+              } else {
+                text = voti;
+                var elencoVoti=voti.split(" ");
+              }
+              
+              
+              
+              var error=0;
+              var somma=0;
+              var variab=0;
+              //Validazione
+                for(var i in elencoVoti){
+                    elencoVoti[i]=parseInt(elencoVoti[i]);
+                    if(elencoVoti[i]<18 || elencoVoti[i]>33){
+                        error=1;
+                    } else{
+                        somma=somma+elencoVoti[i];
+                    }               
+                }
+                var min= Math.min(...elencoVoti);
+                var max= Math.max(...elencoVoti);
+                var media=somma/elencoVoti.length;
+                for(var i in elencoVoti){
+                    variab=variab+Math.pow((elencoVoti[i]-media),2);
+                }
+                variab=variab/elencoVoti.length;
+                
+                if(error==0){
+                var ele=document.getElementById("voti");
+                var node = document.createTextNode (text);
+                ele.appendChild(node);
+                ele=document.getElementById("minimo");
+                node = document.createTextNode (min);
+                ele.appendChild(node);
+                ele=document.getElementById("massimo");
+                node = document.createTextNode (max);
+                ele.appendChild(node);
+                ele=document.getElementById("media");
+                node = document.createTextNode (media);
+                ele.appendChild(node);
+                ele=document.getElementById("variab");
+                node = document.createTextNode (variab);
+                ele.appendChild(node);
+                }else{
+                    alert("Uno o più valori non sono contenuti nel range 18 33");
+                }
+
+                
+            </script>
+			
+		
+
+	</body>
+</html>
+

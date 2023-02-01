@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Esempio di classe</title>
+		<script type="text/javascript" src="./react-libs/babel.js"></script>
+		<script type="text/javascript" src="./react-libs/react.js"></script>
+		<script type="text/javascript" src="./react-libs/react_dom.js"></script>
+		<script type="text/javascript" src="./scripts/requestRandomIntGeneration.js"></script>
+		<script type="text/javascript" src="./scripts/utils.js"></script>
+	</head>
+
+	<body>
+		 <div id="root"></div>
+		 <script type="text/babel">
+
+	        class Dado extends React.Component {
+			    constructor(props) {
+		            super(props);
+					this.state = {numeroEstratto: 0};
+    			}
+
+				lanciaDado () {
+					requestRandomIntGeneration(
+						"./generateRandom",
+						(generated_random_int) => {
+							this.setState({numeroEstratto: generated_random_int})
+						}
+					);
+				}
+
+			   render() {
+				    let valore;
+				    if (this.state.numeroEstratto === 0) {
+				      valore = <small>Lancia il dado cliccando <br /> sul pulsante sottostante</small>;
+				    }else{
+				      valore = <span>{this.state.numeroEstratto}</span>;
+				    }
+				    return (
+				      <div className="card" >
+					<p className="card__number">{valore}</p>
+					<button className="card__button" onClick={() => this.lanciaDado()} >Lancia il Dado</button>
+				      </div>
+				    )
+			  }
+			}
+
+			ReactDOM.render(<Dado />, document.getElementById('root'));
+
+		</script>
+	</body>
+</html>
