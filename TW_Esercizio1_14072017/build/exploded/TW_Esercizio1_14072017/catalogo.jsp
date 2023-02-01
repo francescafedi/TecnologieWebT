@@ -58,7 +58,7 @@ double total(Cart cart) {
 	  <%}%>
 
 				
-			<jsp:useBean id="usersGroup" class="Beans.GruppoUtenti" scope="session" />
+			<jsp:useBean id="usersGroup" class="Beans.GruppoUtenti" scope="application" />
 			<div id="main" class="clear">
 			
 <%
