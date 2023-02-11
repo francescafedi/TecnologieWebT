@@ -17,13 +17,11 @@ import java.util.*;
 public class ProvaWS{
 	private Gson g;
 	int count;
+	
+	
 	@OnOpen
 	public void open (Session session) {
 		g=new Gson();
-		
-		
-		
-		
 	}
 	
 	@OnClose
@@ -40,6 +38,7 @@ public class ProvaWS{
 	
 	@OnMessage
 	public void handleMessage (String message, Session session) {
+		System.out.println("Ciao");
 		OperationResp response=new OperationResp();
 		
 		if(session.getUserProperties().containsKey("numSessione")) {

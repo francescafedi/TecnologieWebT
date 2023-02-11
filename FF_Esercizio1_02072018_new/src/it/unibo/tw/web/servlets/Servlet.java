@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import it.unibo.tw.web.beans.Counter;
-import static java.time.temporal.ChronoUnit.MINUTES;
+
 
 
 public class Servlet extends HttpServlet {
