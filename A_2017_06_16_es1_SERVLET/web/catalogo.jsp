@@ -5,20 +5,19 @@
 <%@ page session="true"%>
 
 <!-- import di classi Java -->
-<%@ page import="it.unibo.tw.web.beans.Catalogue"%>
-<%@ page import="it.unibo.tw.web.beans.Item"%>
+<%@ page import="it.unibo.tw.web.beans.Richiesta"%>
+<%@ page import="it.unibo.tw.web.beans.Regalo"%>
 <%@ page import="it.unibo.tw.web.beans.Group"%>
-<%@ page import="it.unibo.tw.web.beans.Cart"%>
+<%@ page import="it.unibo.tw.web.beans.Turista"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.google.gson.Gson"%>
 
 <!-- metodi richiamati nel seguito -->
-<%!
-void add(Cart carrello, Item item) {
+<%!void add(Turista carrello, Regalo item) {
 
 	boolean alreadyInCatalogue = false;
 	
-	for ( Item itemInCatalogue : carrello.getItems() ) {
+	for ( Regalo itemInCatalogue : carrello.getItems() ) {
 		if ( itemInCatalogue.getDescription().equals( item.getDescription() ) ) {
 			itemInCatalogue.setQuantity( itemInCatalogue.getQuantity() + item.getQuantity() );
 			alreadyInCatalogue = true;
@@ -32,7 +31,7 @@ void add(Cart carrello, Item item) {
 	
 }
 
-void remove(Catalogue catalogue, String description) {
+void remove(Richiesta catalogue, String description) {
 	
 	for ( int i = 0 ; i < catalogue.getItems().size() ; i++ ) {
 		if ( catalogue.getItems().get(i).getDescription().equals(description) ) {
@@ -41,51 +40,49 @@ void remove(Catalogue catalogue, String description) {
 		}
 	}
 
-}
-
-%>
+}%>
 
 <!-- codice html restituito al client -->
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Catalogue JSP</title>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/styles/default.css" type="text/css"/>
 	</head>
 
 	<body>	
 	
 		<div id="main" class="clear">
 
-						<% 
-					Group mygroup=(Group)session.getAttribute("mygroup");
-					Cart carrello=mygroup.getCart();
-					if(carrello==null){
-						carrello=new Cart();
-					}
-				String description = request.getParameter("description");
-	
-				if ( description != null && ! description.equals("") ) {
+						<%
+							Group mygroup=(Group)session.getAttribute("mygroup");
+													Turista carrello=mygroup.getCart();
+													if(carrello==null){
+														carrello=new Turista();
+													}
+												String description = request.getParameter("description");
+											
+												if ( description != null && ! description.equals("") ) {
 
-					if ( description.contains(" ") ) {
-						throw new Exception("Blanks are not allowed in the description field!"); 					
-					}
-					
-					if ( request.getParameter("add") != null && request.getParameter("add").equals("ok") ) {
-						Item item = new Item();
-						item.setDescription( description );
-						item.setPrice( Double.parseDouble( request.getParameter("price") ) );
-						item.setQuantity( 1 );
-						add(carrello,item);
-						mygroup.setCart(carrello);
-						//session.setAttribute("mygroup", mygroup);
-					}
-					else if ( request.getParameter("remove") != null && request.getParameter("remove").equals("ok") ) {
-						//remove(carrello,description);
-					}
-					
-				}
-			%>
+													if ( description.contains(" ") ) {
+														throw new Exception("Blanks are not allowed in the description field!"); 					
+													}
+													
+													if ( request.getParameter("add") != null && request.getParameter("add").equals("ok") ) {
+														Regalo item = new Regalo();
+														item.setDescription( description );
+														item.setPrice( Double.parseDouble( request.getParameter("price") ) );
+														item.setQuantity( 1 );
+														add(carrello,item);
+														mygroup.setCart(carrello);
+														//session.setAttribute("mygroup", mygroup);
+													}
+													else if ( request.getParameter("remove") != null && request.getParameter("remove").equals("ok") ) {
+														//remove(carrello,description);
+													}
+													
+												}
+						%>
 			
 
 			
@@ -98,23 +95,25 @@ void remove(Catalogue catalogue, String description) {
 						<th style="width: 31%">Available quantity</th>
 						<th style="width: 7%"></th>
 					</tr>
-					<% 
-					Gson g=new Gson();
-					String i=(String)application.getAttribute("catalogoJson");
-					Item[] items = g.fromJson(i, Item[].class);
-			
-					for( Item anItem : items ){  
+					<%
+						Gson g=new Gson();
+								String i=(String)application.getAttribute("catalogoJson");
+								Regalo[] items = g.fromJson(i, Regalo[].class);
+						
+								for( Regalo anItem : items ){
 					%> 
 						<tr>
-							<td><%= anItem.getDescription() %></td>
-							<td><%= anItem.getPrice() %> &#8364;</td>
-							<td><%= anItem.getQuantity() %></td>
+							<td><%=anItem.getDescription()%></td>
+							<td><%=anItem.getPrice()%> &#8364;</td>
+							<td><%=anItem.getQuantity()%></td>
 							<td>
-								<a href="?add=ok&description=<%= anItem.getDescription() %>&price=<%= anItem.getPrice() %>">
+								<a href="?add=ok&description=<%=anItem.getDescription()%>&price=<%=anItem.getPrice()%>">
 								Aggiungi</a>
 							</td>
 						</tr>
-					<% } %>
+					<%
+						}
+					%>
 					<tr>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
@@ -136,11 +135,10 @@ void remove(Catalogue catalogue, String description) {
 					</tr>
 					
 						<%
-
-					Item[] itemsCart = carrello.getItems().toArray(new Item[0]);
-			
-					for( Item anItem : itemsCart ){  
-					%> 
+												Regalo[] itemsCart = carrello.getItems().toArray(new Regalo[0]);
+												
+														for( Regalo anItem : itemsCart ){
+											%> 
 						<tr>
 							<td><%= anItem.getDescription() %></td>
 							<td><%= anItem.getPrice() %> &#8364;</td>

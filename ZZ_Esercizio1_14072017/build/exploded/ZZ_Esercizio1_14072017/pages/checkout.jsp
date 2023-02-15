@@ -2,20 +2,20 @@
 
 <%!double totale(Counter cart){
 	double tot=0;
-	for( Item i :cart.getItems()){
+	for( Regalo i :cart.getItems()){
 		tot=tot+(i.getPrice()*cart.getOrder(i));
 	}
 return tot;	
 }
 
-void checkout(Counter cart, Catalogue cat){
-	for( Item i : cart.getItems()){
-		for (Item c : cat.getItems()){
-			if(c.getDescription().equals(i.getDescription())){ // se è l'tem
+void checkout(Counter cart, Richiesta cat){
+	for( Regalo i : cart.getItems()){
+		for (Regalo c : cat.getItems()){
+			if(c.getDescription().equals(i.getDescription())){ // se ï¿½ l'tem
 				if(cart.getOrder(i)>c.getQuantity()){
 					//errore 
 				}else{
-					c.setQuantity(c.getQuantity()-cart.getOrder(i)); //Decremento la quantità
+					c.setQuantity(c.getQuantity()-cart.getOrder(i)); //Decremento la quantitï¿½
 				}
 			}
 		}
@@ -24,25 +24,25 @@ void checkout(Counter cart, Catalogue cat){
 
 }%>
 
-<%@ page import="it.unibo.tw.web.beans.Catalogue"%>
+<%@ page import="it.unibo.tw.web.beans.Richiesta"%>
 <%@ page import="it.unibo.tw.web.beans.Counter"%>
-<%@ page import="it.unibo.tw.web.beans.Item"%>
+<%@ page import="it.unibo.tw.web.beans.Regalo"%>
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Checkout JSP</title>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/styles/default.css" type="text/css"/>
 	</head>
 
 	<body>	
 	
-			<jsp:useBean id="catalogue" class="it.unibo.tw.web.beans.Catalogue" scope="application" />
+			<jsp:useBean id="catalogue" class="it.unibo.tw.web.beans.Richiesta" scope="application" />
 			<jsp:useBean id="cart" class="it.unibo.tw.web.beans.Counter" scope="session" />
 			<%
 				if(request.getParameter("checkout")!=null && request.getParameter("checkout").equals("Concludi l'ordine")){
-					//Creare l'item da passare alla funzione checkout
-					checkout(cart,catalogue);
-				}
+						//Creare l'item da passare alla funzione checkout
+						checkout(cart,catalogue);
+					}
 			%>
 
 		<%@ include file="../fragments/header.jsp" %>
@@ -59,9 +59,9 @@ void checkout(Counter cart, Catalogue cat){
 						<th style="width: 33%">Price</th>
 						<th style="width: 33%">Your order</th>
 					</tr>
-					<% 
-					Item[] cartItems = cart.getItems().toArray(new Item[0]);
-					for( Item aCartItem : cartItems ){  
+					<%
+						Regalo[] cartItems = cart.getItems().toArray(new Regalo[0]);
+								for( Regalo aCartItem : cartItems ){
 					%> 
 						<tr>
 							<td><%= aCartItem.getDescription() %></td>

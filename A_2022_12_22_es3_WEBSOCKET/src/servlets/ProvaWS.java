@@ -1,6 +1,8 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
 
 import javax.servlet.http.HttpServlet;
 import javax.websocket.*;
@@ -19,11 +21,35 @@ import java.util.*;
 public class ProvaWS{
 	private Gson g;
 	int count;
+	Timer timer = new Timer();
+	String pathfile="C:\\aaa\\ciao.txt";
 	private static Partita partita= new Partita();
 	@OnOpen
 	public void open (Session session) throws InterruptedException {
 		g=new Gson();	
-		
+		timer.scheduleAtFixedRate(new TimerTask() {
+			File f=new File(pathfile);
+			long oldL=f.length();
+			  @Override
+			  public void run() {
+			   File f=new File(pathfile);
+			   if(f.length()!=oldL) {
+				   System.out.println("File cambiato");
+				   oldL=f.length();
+				   for(Session s : session.getOpenSessions()) {
+							try {
+							s.getBasicRemote().sendText("Modificato");
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								System.out.println("Errore");
+							}
+						}
+					}
+			   }
+			  
+			}, 2*60*100, 2*60*100);
+
 	}
 	
 	@OnClose
@@ -41,6 +67,7 @@ public class ProvaWS{
 		
 	}
 	
+		
 	@OnMessage
 	public void handleMessage (String message, Session session) throws InterruptedException {	
 		OperationReq richiesta=g.fromJson(message, OperationReq.class);

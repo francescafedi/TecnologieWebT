@@ -5,17 +5,16 @@
 <%@ page session="true"%>
 
 <!-- import di classi Java -->
-<%@ page import="it.unibo.tw.web.beans.Catalogue"%>
-<%@ page import="it.unibo.tw.web.beans.Item"%>
+<%@ page import="it.unibo.tw.web.beans.Richiesta"%>
+<%@ page import="it.unibo.tw.web.beans.Regalo"%>
 <%@ page import="java.util.List"%>
 
 <!-- metodi richiamati nel seguito -->
-<%!
-void add(Catalogue catalogue, Item item) {
+<%!void add(Richiesta catalogue, Regalo item) {
 
 	boolean alreadyInCatalogue = false;
 	
-	for ( Item itemInCatalogue : catalogue.getItems() ) {
+	for ( Regalo itemInCatalogue : catalogue.getItems() ) {
 		if ( itemInCatalogue.getDescription().equals( item.getDescription() ) ) {
 			itemInCatalogue.setQuantity( itemInCatalogue.getQuantity() + item.getQuantity() );
 			alreadyInCatalogue = true;
@@ -29,7 +28,7 @@ void add(Catalogue catalogue, Item item) {
 	
 }
 
-void remove(Catalogue catalogue, String description) {
+void remove(Richiesta catalogue, String description) {
 	
 	for ( int i = 0 ; i < catalogue.getItems().size() ; i++ ) {
 		if ( catalogue.getItems().get(i).getDescription().equals(description) ) {
@@ -38,15 +37,14 @@ void remove(Catalogue catalogue, String description) {
 		}
 	}
 
-}
-%>
+}%>
 
 <!-- codice html restituito al client -->
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Catalogue JSP</title>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/styles/default.css" type="text/css"/>
 	</head>
 
 	<body>	
@@ -56,30 +54,30 @@ void remove(Catalogue catalogue, String description) {
 	
 		<div id="main" class="clear">
 
-			<jsp:useBean id="catalogue" class="it.unibo.tw.web.beans.Catalogue" scope="application" />
+			<jsp:useBean id="catalogue" class="it.unibo.tw.web.beans.Richiesta" scope="application" />
 			
 			<%
-				String description = request.getParameter("description");
-	
-				if ( description != null && ! description.equals("") ) {
+							String description = request.getParameter("description");
+							
+								if ( description != null && ! description.equals("") ) {
 
-					if ( description.contains(" ") ) {
-						throw new Exception("Blanks are not allowed in the description field!"); 					
-					}
-					
-					if ( request.getParameter("add") != null && request.getParameter("add").equals("submit item") ) {
-						Item item = new Item();
-						item.setDescription( description );
-						item.setPrice( Double.parseDouble( request.getParameter("price") ) );
-						item.setQuantity( Integer.parseInt(request.getParameter("quantity") ) );
-						add(catalogue,item);
-					}
-					else if ( request.getParameter("remove") != null && request.getParameter("remove").equals("ok") ) {
-						remove(catalogue,description);
-					}
-					
-				}
-			%>
+									if ( description.contains(" ") ) {
+										throw new Exception("Blanks are not allowed in the description field!"); 					
+									}
+									
+									if ( request.getParameter("add") != null && request.getParameter("add").equals("submit item") ) {
+										Regalo item = new Regalo();
+										item.setDescription( description );
+										item.setPrice( Double.parseDouble( request.getParameter("price") ) );
+										item.setQuantity( Integer.parseInt(request.getParameter("quantity") ) );
+										add(catalogue,item);
+									}
+									else if ( request.getParameter("remove") != null && request.getParameter("remove").equals("ok") ) {
+										remove(catalogue,description);
+									}
+									
+								}
+						%>
 			
 			<div id="left" style="float: left; width: 48%; border-right: 1px solid grey">
 			
@@ -119,9 +117,9 @@ void remove(Catalogue catalogue, String description) {
 						<th style="width: 31%">Available quantity</th>
 						<th style="width: 7%"></th>
 					</tr>
-					<% 
-					Item[] items = catalogue.getItems().toArray(new Item[0]);
-					for( Item anItem : items ){  
+					<%
+						Regalo[] items = catalogue.getItems().toArray(new Regalo[0]);
+								for( Regalo anItem : items ){
 					%> 
 						<tr>
 							<td><%= anItem.getDescription() %></td>

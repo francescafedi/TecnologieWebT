@@ -102,7 +102,7 @@ public class DispatcherServlet extends HttpServlet {
 		listaRisposte.add(oggettorisposta);
 		String res=g.toJson(oggettorisposta);
 		response.getWriter().println(res);
-		
+
     }
 
 }

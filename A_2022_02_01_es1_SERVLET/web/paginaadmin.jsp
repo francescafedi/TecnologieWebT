@@ -1,6 +1,6 @@
 <!-- accesso alla sessione -->
 <%@ page session="true"%>
-<%@ page import="it.unibo.tw.web.beans.Catalogue"%>
+<%@ page import="it.unibo.tw.web.beans.Request"%>
 <%@ page import="it.unibo.tw.web.beans.Prenotazione"%>
 <%@ page import="it.unibo.tw.web.beans.User"%>
 <%@ page import="java.util.List"%>
@@ -10,11 +10,11 @@
 
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		 <meta http-equiv="refresh" content="5; URL=paginaadmin.jsp">
 		<title>Prenotazione campo</title>
 		<script type="text/javascript" src="scripts/utils.js"></script>
-		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/styles/default.css" type="text/css"/>
 	</head>
 
 	<body>	
@@ -29,17 +29,17 @@
 		</span>
 		<br/><br/>
 		<div id="main" class="clear">
-					<% 
-					User u=(User)session.getAttribute("currentUser");
-					if(u != null){
-					if(!u.getUsername().equals("admin")){
-						%>
+					<%
+						User u=(User)session.getAttribute("currentUser");
+											if(u != null){
+											if(!u.getUsername().equals("admin")){
+					%>
 						<h3>La pagina &egrave; riservata agli amministratori</h3>	
 						<%
-					}else{
-					Catalogue prenotazioni=(Catalogue)application.getAttribute("listaPrenotazioni");
-					if(prenotazioni==null){
-			%>
+								}else{
+										Request prenotazioni=(Request)application.getAttribute("listaPrenotazioni");
+										if(prenotazioni==null){
+							%>
 			<h3>Nessuna prenotazione in sospeso</h3>	
 			<%}else{ %>
 			<h3>Lista prenotazioni in attesa di giocatori</h3>	

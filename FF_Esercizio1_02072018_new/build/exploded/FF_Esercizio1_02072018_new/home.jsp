@@ -1,6 +1,6 @@
 <%@ page session="true"%>
 <%@ page import="java.io.File"%>
-<%@ page import="it.unibo.tw.web.beans.Item"%>
+<%@ page import="it.unibo.tw.web.beans.Regalo"%>
 <%@ page import="java.util.*"%>
 <html>
    <head>
@@ -18,33 +18,32 @@
       upon the first reqeust.
       This message avoid letting the user linger without knowing what's going on.
       -->
- <%	
- 
-
- 		%>
+ <%
+ 	
+ %>
 
  
  
  
       <p>
       	Ecco la lista dei file contenuti nella cartella  <br>	
-<% 
-	String directory=application.getInitParameter("dirurl");
-	Item i=(Item)session.getAttribute("folder");
-	File []folder;
-	if(i==null){
-	File dir=new File(directory);
-	Item inew= new Item();
-	inew.setFolder(dir.listFiles()); 
-	session.setAttribute("folder",inew);
-	folder=inew.getFolder();
-	}else{
-	folder=i.getFolder();
-	}
+<%
+		String directory=application.getInitParameter("dirurl");
+		Regalo i=(Regalo)session.getAttribute("folder");
+		File []folder;
+		if(i==null){
+		File dir=new File(directory);
+		Regalo inew= new Regalo();
+		inew.setFolder(dir.listFiles()); 
+		session.setAttribute("folder",inew);
+		folder=inew.getFolder();
+		}else{
+		folder=i.getFolder();
+		}
 
-	for(File f : folder)
- 		{
-%>
+		for(File f : folder)
+	 		{
+	%>
  		
       	<input id="el" type="checkbox" value=<%=f.getName()%> onclick="contaCaratteri( 'dis', 'ejbean.jsp', myGetElementById('result'), myGetElementById('result1') )"/><%=f.getName()%><br>
       	<%

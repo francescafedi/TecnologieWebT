@@ -9,7 +9,7 @@
 
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		 <meta http-equiv="refresh" content="5; URL=paginaadmin.jsp">
 		<title>Prenotazione campo</title>
 		<script type="text/javascript" src="scripts/utils.js"></script>
@@ -31,7 +31,7 @@
 			<table class="formdata">
 					<tr>
 						<th style="width: 31%">Parola</th>
-						<th style="width: 31%">N° Servlet</th>
+						<th style="width: 31%">Nï¿½ Servlet</th>
 						<th style="width: 31%">Tempo impiegato</th>
 					</tr>
 			<%

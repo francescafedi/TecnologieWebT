@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="-1"/>
+		<title>Pagina</title>
+		<link rel="stylesheet" href="styles/default.css" type="text/css" />
+		<script type="text/javascript" src="scripts/utils.js"></script>
+	</head>
+	<body>
+
+
+		<h2>Benvenuto</h2>
+			<p>Inserisci la parola da conteggiare</p>
+			<input type="text" name="parola" id="parola"/>
+			<p>Scegli il paralellismo con cui conteggiare la parola</p>
+			<select id="numero" name="numero">
+				    <option value="1">1</option>
+				    <option value="2">2</option>
+				    <option value="4">4</option>
+			</select><br/><br>
+			<button onclick="action( 'dis', myGetElementById('result') )">Invia</button> 
+		<p id="result"></p>
+
+	</body>
+</html>
+
+
+
+

@@ -36,7 +36,7 @@ double total(Cart cart) {
 <!-- codice html restituito al client -->
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<script type="text/javascript" src="scripts/utils.js"></script>
 		<script type="text/javascript" src="scripts/catalogue.js"></script>
 		<title>Cart JSP</title>

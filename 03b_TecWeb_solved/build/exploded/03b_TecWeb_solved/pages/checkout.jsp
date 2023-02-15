@@ -1,7 +1,7 @@
 
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Checkout JSP</title>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>
 	</head>

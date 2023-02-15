@@ -7,11 +7,10 @@ function send( data) {
 }
 
 socket.onopen= function (event){
-	alert("connesione aperta");
+	alert("File cambiato");
 }
 
 socket.onmessage =  function (event){
-	
 	 var message = JSON.parse(event.data);
 	 if(message.result>0)
 		 {

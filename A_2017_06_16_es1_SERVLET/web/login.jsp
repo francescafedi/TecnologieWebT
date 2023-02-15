@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Home JSP</title>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>
 	</head>
@@ -47,14 +47,14 @@
       			case 4:
       			{
       				%>
-  					<p>Sessione già attiva su un altro dispositivo</strong> </p>
+  					<p>Sessione giï¿½ attiva su un altro dispositivo</strong> </p>
   					<% 
       			}break;
       			
       			case 5:
       			{
       				%>
-  					<p>Utente: il suo ordine è stato gestito dell'amministratore </p>
+  					<p>Utente: il suo ordine ï¿½ stato gestito dell'amministratore </p>
   					<% 
       			}break;
       		}

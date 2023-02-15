@@ -1,6 +1,6 @@
 <%@ page session="true"%>
 <%@ page import="java.io.File"%>
-<%@ page import="it.unibo.tw.web.beans.Item"%>
+<%@ page import="it.unibo.tw.web.beans.Regalo"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.time.Duration"%>
 <%@ page import="java.time.LocalTime"%>

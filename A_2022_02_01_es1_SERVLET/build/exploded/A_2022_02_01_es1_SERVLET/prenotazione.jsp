@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<title>Prenotazione campo</title>
 		<script type="text/javascript" src="scripts/utils.js"></script>
 		<link rel="stylesheet" href="<%= request.getContextPath() %>/styles/default.css" type="text/css"/>

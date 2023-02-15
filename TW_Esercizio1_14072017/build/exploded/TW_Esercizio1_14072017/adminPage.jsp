@@ -18,7 +18,7 @@
 
 <html>
 	<head>
-		<meta name="Author" content="pisi79">
+		<meta name="Author" content="Francesca Fedi">
 		<script type="text/javascript" src="scripts/utils.js"></script>
 		<title>Cart JSP</title>
 		

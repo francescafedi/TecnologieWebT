@@ -7,8 +7,8 @@ function send(data) {
 
 
 socket.onmessage =  function (event){
-	
-	 var message = JSON.parse(event.data);
+	alert("File cambiato");
+	/* var message = JSON.parse(event.data);
 	 if(message.result>0)
 		 {
 		 if(message.result==1) alert("Iscritto alla partita");
@@ -32,7 +32,7 @@ socket.onmessage =  function (event){
 		 console.log(message);
 	 }
 			
-		
+	*/	
 	 	
 }
 
