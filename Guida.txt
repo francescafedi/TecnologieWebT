@@ -1,0 +1,21 @@
+Guida alla configurazione:
+
+1. Inserire tutte le librerie nel build path (Importante che siano tutte nella cartella principale lib)
+2. Impostazione di ANT: Windows/show view/Other/Ant e trascino il file build.xml nella view/Other/Ant
+3. Definisco il file enviroment.propeties inserendo JDK e poszione server
+4. Imposto Tomcat definendo con SET JAVA_HOME= 'path jdk'
+5. cd bin e startup
+6. Clicco su 09a.deploy.war
+7. Aggiungere la view del server e impostare le cose:Sotto Server Location selezionare:
+▪ Use Tomcat installation
+▪ Impostare correttamente il deploy path su: webapps
+
+Se dal LAB:
+C:\Program Files\Java\jdk-11.0.16
+C:\\Applicativi\\TecnologieWeb\\apache-tomcat-9.0.22
+
+Se da CASA:
+C:\Program Files\Java\jdk-13.0.2
+C:\\Users\\User\\Documents\\Università\\Tecnologie web\\Server web\\apache-tomcat-9.0.22
+
+
